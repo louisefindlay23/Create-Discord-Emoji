@@ -13,9 +13,23 @@ client.on("interactionCreate", async (interaction) => {
 
     const { commandName } = interaction;
 
-    if (commandName === "messagebot") {
-        const text = interaction.options._hoistedOptions[0].value;
-        await interaction.reply(`The message was ${text}`);
+    if (commandName === "emojibot") {
+        const guild = interaction.guild;
+        const emojiName = interaction.options.getString("name");
+        let emoji = interaction.options.getAttachment("emoji").attachment;
+        guild.emojis
+            .create({
+                attachment: emoji,
+                name: emojiName,
+            })
+            .then((emoji) => {
+                console.log(`Created new emoji with name ${emoji.name}`);
+                emoji = client.emojis.cache.find(
+                    (emoji) => emoji.name === emojiName
+                );
+                interaction.reply(`You created ${emojiName} emoji: ${emoji}`);
+            })
+            .catch(console.error);
     }
 });
 

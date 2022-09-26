@@ -7,12 +7,18 @@ const guildID = process.env.GUILD_ID;
 
 const commands = [
     new SlashCommandBuilder()
-        .setName("messagebot")
-        .setDescription("Replies with message content")
+        .setName("emojibot")
+        .setDescription("Creates custom Discord emoji")
         .addStringOption((option) =>
             option
                 .setName("name")
-                .setDescription("Test Option")
+                .setDescription("Name of the Emoji")
+                .setRequired(true)
+        )
+        .addAttachmentOption((option) =>
+            option
+                .setName("emoji")
+                .setDescription("Emoji File")
                 .setRequired(true)
         ),
 ].map((command) => command.toJSON());
