@@ -26,21 +26,38 @@ client.on("interactionCreate", async (interaction) => {
                 "Your emoji name must be between 2 and 32 characters long. Please run `/emojibot` again and pick a name of the correct length"
             );
         } else {
-            guild.emojis
-                .create({
-                    attachment: emoji,
-                    name: emojiName,
-                })
-                .then((emoji) => {
-                    console.log(`Created new emoji with name ${emoji.name}`);
-                    emoji = client.emojis.cache.find(
-                        (emoji) => emoji.name === emojiName
-                    );
-                    interaction.reply(
-                        `You created ${emojiName} emoji: ${emoji}`
-                    );
-                })
-                .catch(console.error);
+            let emoji = interaction.options.getAttachment("emoji").attachment;
+            fetch(emoji).then((res) => {
+                if (res.status >= 400) {
+                    throw new Error("Bad response from server");
+                } else {
+                    console.info(res.headers);
+                    console.info(res.headers["content-length"]);
+                    if (res.headers["content-length"] > 256000) {
+                        interaction.reply(
+                            "Your image must be less than 256KB. Please resize or pick image and run `/emojibot` again."
+                        );
+                    } else {
+                        guild.emojis
+                            .create({
+                                attachment: emoji,
+                                name: emojiName,
+                            })
+                            .then((emoji) => {
+                                console.log(
+                                    `Created new emoji with name ${emoji.name}`
+                                );
+                                emoji = client.emojis.cache.find(
+                                    (emoji) => emoji.name === emojiName
+                                );
+                                interaction.reply(
+                                    `You created ${emojiName} emoji: ${emoji}`
+                                );
+                            })
+                            .catch(console.error);
+                    }
+                }
+            });
         }
     }
 });
