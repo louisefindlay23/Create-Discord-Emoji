@@ -3,6 +3,7 @@ require("dotenv").config();
 const { Client, GatewayIntentBits } = require("discord.js");
 const token = process.env.BOT_TOKEN;
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+const fetch = require("cross-fetch");
 
 client.once("ready", () => {
     console.log("Ready!");
@@ -20,8 +21,11 @@ client.on("interactionCreate", async (interaction) => {
             interaction.reply(
                 "This emoji name already exists. Please run `/emojibot` again and pick a new name"
             );
+        } else if (emojiName.length < 2 && emojiName.length > 32) {
+            interaction.reply(
+                "Your emoji name must be between 2 and 32 characters long. Please run `/emojibot` again and pick a name of the correct length"
+            );
         } else {
-            let emoji = interaction.options.getAttachment("emoji").attachment;
             guild.emojis
                 .create({
                     attachment: emoji,
