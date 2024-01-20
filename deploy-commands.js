@@ -6,7 +6,7 @@ const clientID = process.env.CLIENT_ID;
 
 const commands = [
     new SlashCommandBuilder()
-        .setName("emojibot")
+        .setName("create-emoji")
         .setDescription("Creates custom Discord emoji")
         .addStringOption((option) =>
             option
@@ -16,8 +16,8 @@ const commands = [
         )
         .addAttachmentOption((option) =>
             option
-                .setName("emoji")
-                .setDescription("Emoji File")
+                .setName("icon")
+                .setDescription("File containing the Emoji")
                 .setRequired(true)
         ),
 ].map((command) => command.toJSON());
