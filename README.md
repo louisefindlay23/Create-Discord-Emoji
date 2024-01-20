@@ -6,7 +6,7 @@ Empower users to create their own custom emoji for your Discord server using Cre
 
 ## Install
 
-Invite [Create Emoji Bot](https://discord.com/api/oauth2/authorize?client_id=1023904889304256546&permissions=2147485728&response_type=code&redirect_uri=https%3A%2F%2Fgithub.com%2Flouisefindlay23%2Fautoconvertdiscordemoji&scope=guilds+bot) to your Discord Server.
+Invite [Create Emoji Bot](https://discord.com/api/oauth2/authorize?client_id=1023904889304256546&permissions=3221227520&scope=bot) to your Discord Server.
 
 ## Usage
 
